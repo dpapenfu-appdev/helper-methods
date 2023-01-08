@@ -24,6 +24,21 @@
 
     <textarea id="description_box" name="query_description" rows="3"><%= @the_movie.description %></textarea>
   </div>
+<%= form_with(url: movies_path) do %>
+ <div>
+    <%= label_tag :title_box, "Title"%>
+    
+    <%=text_field_tag :query_title, @the_movie.title, id: "title_box" %>
+ </div>
+
+ <div>
+    <%= label_tag :description_box, "Description"%>
+    <%= text_area_tag :query_description, @the_movie.description, id: "description_box", rows: 3%> 
+</div>
+
+<%= button_tag "Edit movie"%>  
+<%end%>
+
 
   <button>
     Update movie
