@@ -8,6 +8,10 @@
 
 <%= form_with(model: @movie, method: :patch) do |form| %>
 
+<div>
+   
+   <%= form.hidden_field :id, value: @movie.id%>
+</div>
 
 <div>
    <%= form.label :title%>

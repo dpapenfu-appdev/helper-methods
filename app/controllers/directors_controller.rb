@@ -1,17 +1,17 @@
-class MoviesController < ApplicationController
+class DirectorsController < ApplicationController
   def new
-    @movie = Movie.new
+    @director = Director.new
 
    end
 
   def index
     
 
-    @movies = Movie.order( created_at: :desc )
+    @directors = Director.order( created_at: :desc )
 
     respond_to do |format|
       format.json do
-        render json: @list_of_movies
+        render json: @directors
       end
 
       format.html
@@ -24,26 +24,26 @@ class MoviesController < ApplicationController
     # @the_movie  = Movie.where( params.fetch(:id)).first
 
     # @the_movie  = Movie.find_by( params.fetch(:id))... find works only if you are searching by the default... which is id... otherwise use find_by
-    @movie = Movie.find(params.fetch(:id))
+    @director = Director.find(params.fetch(:id))
 
     
   end
 
   def create
-    movie_attributes = params.require(:movie).permit(:title, :description)
-    @movie = Movie.new(movie_attributes)
+    director_attributes = params.require(:director).permit(:name, :bio, :dob)
+    @director = Director.new(director_attributes)
     # the .new is capable of something called mass assignment. it, the .new method, is capable of receiving  a hash containing all the attribute value pairs, and it will assign them for us. 
 
-    if @movie.valid?
-      @movie.save
-      redirect_to movies_url, notice: "Movie created successfully." 
+    if @director.valid?
+      @director.save
+      redirect_to directors_url, notice: "Director created successfully." 
     else
       render "new"
     end
   end
 
   def edit
-  @movie = Movie.find(params.fetch(:id))
+  @director = Director.find(params.fetch(:id))
 
     
   end
@@ -57,14 +57,14 @@ class MoviesController < ApplicationController
     # @movie.title = params.fetch(:movie).fetch(:title)
     # @movie.description = params.fetch(:movie).fetch(:description)
     
-       movie_attributes = params.require(:movie).permit(:title, :description, :id)
-       @movie = Movie.find(params.fetch(:id))
+       director_attributes = params.require(:director).permit(:director, :name, :dob, :id)
+       @director = Director.find(params.fetch(:id))
       
-      if @movie
-       @movie.update(movie_attributes)
-         redirect_to movie_url(@movie), notice: "Movie updated successfully."
+      if @director
+       @director.update(director_attributes)
+         redirect_to director_url(@director), notice: "Director updated successfully."
         else
-       redirect_to movie_url(@movie), alert: "Movie failed to update successfully."
+       redirect_to director_url(@director), alert: "Director failed to update successfully."
         end
        end
 
@@ -78,10 +78,10 @@ class MoviesController < ApplicationController
 
   def destroy
     
-    @movie = Movie.find(params.fetch(:id))
+    @director = Director.find(params.fetch(:id))
 
-    @movie.destroy
+    @director.destroy
 
-    redirect_to movies_url, notice: "Movie deleted successfully." 
+    redirect_to directors_url, notice: "Director deleted successfully." 
   end
 end
