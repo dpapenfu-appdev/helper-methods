@@ -30,9 +30,9 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new
-    @movie.title = params.fetch(:movie).fetch(:title)
-    @movie.description = params.fetch(:movie).fetch(:description)
+    movie_attributes = params.require(:movie).permit(:title, :description)
+    @movie = Movie.new(movie_attributes)
+    # the .new is capable of something called mass assignment. it, the .new method, is capable of receiving  a hash containing all the attribute value pairs, and it will assign them for us. 
 
     if @movie.valid?
       @movie.save
@@ -49,7 +49,8 @@ class MoviesController < ApplicationController
   end
 
   def update
-    
+    # movie_attributes = params.require(:movie).permit(:title, :description)
+    # @movie = Movie.new(movie_attributes)
     @movie = Movie.find(params.fetch(:id))
 
     @movie.title = params.fetch(:title)
